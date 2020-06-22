@@ -1,0 +1,32 @@
+{
+    "author": "Curt Elsasser",
+    "description": "Pig DAM's project store",
+    "homepage": "https://github.com/celsasser/pig-dam-mongo.git",
+    "keywords": [
+        "mongo",
+        "pig"
+    ],
+    "name": "pig-dam-mongo",
+    "private": true,
+    "readmeFilename": "README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/celsasser/pig-dam-mongo.git"
+    },
+    "scripts": {
+        "docker:build": "docker build -t pig.dam.mongo deployment/.",
+        "docker:clean": "../scripts/docker-clean.sh pig.dam.mongo",
+        "docker:network:start": "../scripts/docker-network.sh start",
+        "docker:network:stop": "../scripts/docker-network.sh stop",
+        "docker:rebuild": "npm run docker:clean; npm run docker:build",
+        "docker:run": "npm run -s docker:running || docker run -d --name pig.dam.mongo --network pig.dam.network -p 27017:27017 pig.dam.mongo",
+        "docker:running": "docker ps --filter 'name=pig.dam.mongo' --filter 'status=running' -q | grep -i '.*'",
+        "docker:start": "npm run docker:build && npm run docker:network:start && npm run docker:run",
+        "lint": "echo > /dev/null",
+        "start": "npm run docker:start",
+        "test:integration": "echo > /dev/null",
+        "test:ping": "echo > /dev/null",
+        "test:unit": "echo > /dev/null"
+    },
+    "version": "0.0.1"
+}
